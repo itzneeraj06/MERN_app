@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [empData, setEmpData] = useState();
+  const [loading, setloading] = useState(true);
 
   const getAllData = async () => {
     try {
@@ -39,6 +40,7 @@ const HomePage = () => {
 
       const res = await getPeople.json();
       setEmpData(res);
+      setloading(false);
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +74,15 @@ const HomePage = () => {
             </div>
           </Link>
         </div>
-        <div className="flex flex-col mt-6">
+        {
+        loading?(
+          <div className="w-full h-52 m-auto flex items-center justify-center content-center mt-2"><span className=" w-8 h-8
+  rounded-full
+  inline-flex
+  border border-t-white border-r-transparent
+  animate-spin"></span></div>
+        ):(
+          <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
@@ -142,7 +152,10 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>)
+
+        }
+
       </section>
     </>
   );
